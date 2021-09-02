@@ -55,7 +55,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"], # templates를 여러개 등록할 수 있음
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
