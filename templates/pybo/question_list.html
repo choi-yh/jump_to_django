@@ -11,11 +11,11 @@
         </thead>
         <tbody>
         {% if question_list %}
-        {% for question in quesion_list %}
+        {% for question in question_list %}
         <tr>
             <td>{{ forloop.counter }}</td>
             <td>
-                <a href="{% url 'pybo:detail' question.id %}">{{ quesion.subject }}</a>
+                <a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a>
             </td>
             <td>{{ question.create_date }}</td>
         </tr>
@@ -27,5 +27,6 @@
         {% endif %}
         </tbody>
     </table>
+    <a href="{% url 'pybo:question_create' %}" class="btn btn-primary">질문 등록하기</a>
 </div>
 {% endblock %}
