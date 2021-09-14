@@ -6,17 +6,24 @@ from django.shortcuts import (
 from django.utils import timezone
 from .models import Question
 from .forms import QuestionForm, AnswerForm
+from django.core.paginator import Paginator
 
 
 def index(request):
     """
     pybo 목록 출력
     """
-    # 질문 목록 데이터 create_date 내림차순으로 조회
-    question_list = Question.objects.order_by("-create_date")
-    context = {"question_list": question_list}
+    # 입력 파라미터
+    page = request.GET.get("page", "1")  # 페이지
 
-    # "pybo/question_list.html": template
+    # 조회
+    question_list = Question.objects.order_by("-create_date")
+
+    # 페이징처리
+    paginator = Paginator(question_list, 10)  # 페이지당 10개씩 보여주기
+    page_obj = paginator.get_page(page)  # 요청되는 페이지에 해당되는 페이징 객체
+
+    context = {"question_list": page_obj} # question_list는 페이징 객체(page_obj)
     return render(request, "pybo/question_list.html", context)
 
 
