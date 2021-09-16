@@ -31,9 +31,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "common.apps.CommonConfig",
     "pybo.apps.PyboConfig",  # 테이블 생성을 위해 pybo 앱 추가
     "django.contrib.admin",
-    "django.contrib.auth",
+    "django.contrib.auth",  # 로그인, 로그아웃 관련
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
@@ -55,7 +56,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"], # templates를 여러개 등록할 수 있음
+        "DIRS": [BASE_DIR / "templates"],  # templates를 여러개 등록할 수 있음
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -120,10 +121,16 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    BASE_DIR / "static",
 ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# 로그인 성공 후 이동하는 URL
+LOGIN_REDIRECT_URL = "/"
+
+# 로그아웃시 이동하는 URL
+LOGOUT_REDIRECT_URL = "/"
