@@ -11,11 +11,14 @@ from django.contrib.auth.models import User
 
 
 class Question(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="author_question"
+    )
     subject = models.CharField(max_length=200)  # 질문의 제목
     content = models.TextField()  # 질문의 내용 / 글자수 제한 X 텍스트 -> TextField 사용
     create_date = models.DateTimeField()  # 질문 작성 일시
     modify_date = models.DateTimeField(null=True, blank=True)
+    voter = models.ManyToManyField(User, related_name="voter_question")  # 추천인 추가
 
     def __str__(self):  # id 값 대신 제목 표시
         return self.subject
@@ -23,11 +26,14 @@ class Question(models.Model):
 
 class Answer(models.Model):
     # 질문 (어떤 질문에 대한 답인지 확인하기 위함) / ForeignKey : 기존 모델을 속성으로 연결
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="author_answer"
+    )
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     content = models.TextField()  # 답변의 내용
     create_date = models.DateTimeField()  # 답변 작성 일시
     modify_date = models.DateTimeField(null=True, blank=True)
+    voter = models.ManyToManyField(User, related_name="voter_answer")
 
 
 class Comment(models.Model):
