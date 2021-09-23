@@ -15,6 +15,7 @@ class Question(models.Model):
     subject = models.CharField(max_length=200)  # 질문의 제목
     content = models.TextField()  # 질문의 내용 / 글자수 제한 X 텍스트 -> TextField 사용
     create_date = models.DateTimeField()  # 질문 작성 일시
+    modify_date = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):  # id 값 대신 제목 표시
         return self.subject
@@ -26,3 +27,4 @@ class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     content = models.TextField()  # 답변의 내용
     create_date = models.DateTimeField()  # 답변 작성 일시
+    modify_date = models.DateTimeField(null=True, blank=True)
